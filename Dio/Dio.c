@@ -23,10 +23,10 @@
 #define PORTD *((volatile u8*)0x32)
 #define DDRD  *((volatile u8*)0x31)
 #define PIND  *((volatile u8*)0x30)
+/*********************************************************************************************************************/
 
-
-
-/* Interface to set the Output value of the pin                              */
+/*********************************************************************************************************************/
+/* Interface to set the Output value of the pin                                                                      */
 void Dio_vidSetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8ValueCpy)
 {
 
@@ -77,8 +77,10 @@ void Dio_vidSetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8ValueCpy)
   }
 
 }
+/*********************************************************************************************************************/
 
-/* Interface to get the value of the input pin                               */
+/*********************************************************************************************************************/
+/* Interface to get the value of the input pin                                                                       */
 u8 Dio_u8GetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy)
 {
 
@@ -111,7 +113,10 @@ u8 Dio_u8GetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy)
   }
   return Loc_u8PinValue;
 }
+/*********************************************************************************************************************/
 
+/*********************************************************************************************************************/
+/* Interface to Set the direction of PIN                                                                             */
 void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8DirectionCpy)
 {
 
@@ -162,3 +167,4 @@ void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8Directio
   }
 
 }
+/*********************************************************************************************************************/
