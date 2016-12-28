@@ -22,8 +22,7 @@ typedef                double f64;
 
 typedef          long  double f80;
 
-
-
+/* Type definition for byte and bit access                                                                           */
 typedef union
 {
   struct
@@ -39,5 +38,6 @@ typedef union
   } strBit;     /*for bit  access             */
   u8 u8Byte;    /* for byte access            */
 } STD_tenuPort;
+/*********************************************************************************************************************/
 
 #endif
