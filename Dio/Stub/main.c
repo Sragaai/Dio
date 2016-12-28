@@ -20,7 +20,7 @@
 #define STUB_LED_NOK_PATTERN      0x81
 
 /* Application Choice                                                                                                */
-#define STUB_APP_CHOICE           6
+#define STUB_APP_CHOICE           7
 
 /* 7-Segment numbers from 0 to 9                                                                                     */
 u8 Stub_u8Segment[10] =
@@ -41,8 +41,11 @@ u8 Stub_u8Segment[10] =
 int main(void)
 {
 
-  /* Local Loop index                                                                                                */
+  /* Local Loop Index                                                                                                */
   u8 LOC_u8Index;
+
+  /* Inner Local Loop Index                                                                                          */
+  u8 LOC_u8InnerIndex;
 
   /* Variable to choose the working application                                                                      */
   u8 LOC_u8Choice;
@@ -58,6 +61,9 @@ int main(void)
 
     /* Setting PORTD as INPUT                                                                                        */
     Dio_vidSetPinDirection(DIO_PORTD, LOC_u8Index, 0);
+
+    /* Setting PORTC as Output                                                                                       */
+    Dio_vidSetPinDirection(DIO_PORTC, LOC_u8Index, 1);
 
     /* Activate Pull UP Resistance for PORTD                                                                         */
     Dio_vidSetPinValue(DIO_PORTD, LOC_u8Index, 1);
@@ -202,8 +208,13 @@ int main(void)
 
       for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
       {
-        /* All the port is set to ONE                                                                                */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_ON);
+        /* All the port is set to ON                                                                                 */
+        Dio_vidSetPinValue(DIO_PORTC, LOC_u8Index, STD_ON);
+
+        _delay_ms(500);
+
+        /* All the port is set to OFF                                                                                */
+        Dio_vidSetPinValue(DIO_PORTC, LOC_u8Index, STD_OFF);
       }
     }
     /*****************************************************************************************************************/
@@ -225,7 +236,27 @@ int main(void)
     }
     /*****************************************************************************************************************/
 
-  }
+    /********************************* Turning Light Application *****************************************************/
+    /* Two 7-Segments counts from 59 to 0                                                                            */
+    if (LOC_u8Choice == 7)
+    {
+      for (LOC_u8Index = 0; LOC_u8Index < 6; LOC_u8Index++)
+      {
+        /* Counting from 5 to 0                                                                                      */
+        Dio_vidSetPortValue(DIO_PORTA, Stub_u8Segment[5 - LOC_u8Index]);
+
+        for (LOC_u8InnerIndex = 0; LOC_u8InnerIndex < 10; LOC_u8InnerIndex++)
+        {
+          /* Counting from 9 to 0                                                                                    */
+          Dio_vidSetPortValue(DIO_PORTC, Stub_u8Segment[9 - LOC_u8InnerIndex]);
+
+          _delay_ms(500);
+        }
+      }
+
+    }
+    /*****************************************************************************************************************/
+  }/* while 1*/
 
 }
 
