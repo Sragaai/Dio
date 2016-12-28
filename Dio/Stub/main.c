@@ -76,12 +76,12 @@ int main(void)
         if (Dio_u8GetPinValue(DIO_PORTD, LOC_u8Index))
         {
           /* The button is not pressed then turn OFF the LED                                                         */
-          Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 0);
+          Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_OFF);
         }
         else
         {
           /* The button is pressed then turn ON the LED                                                              */
-          Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 1);
+          Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_ON);
         }
       }
     }
@@ -96,13 +96,13 @@ int main(void)
       for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
       {
         /* Turn ON the LED on turn                                                                                   */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 1);
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_ON);
 
         /* Delay to see the change                                                                                   */
         _delay_ms(500);
 
         /* Turn OFF the LED                                                                                          */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 0);
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_OFF);
 
       }
     }
@@ -122,20 +122,20 @@ int main(void)
         _delay_ms(500);
 
         /* Turn OFF the LED                                                                                          */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 0);
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_OFF);
 
       }
 
       for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
       {
         /* Turn ON the LED on turn                                                                                   */
-        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, 1);
+        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, STD_ON);
 
         /* Delay to see the change                                                                                   */
         _delay_ms(500);
 
         /* Turn OFF the LED                                                                                          */
-        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, 0);
+        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, STD_OFF);
 
       }
     }
@@ -149,15 +149,15 @@ int main(void)
       for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
       {
         /* Turn ON the LED on turn                                                                                   */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 1);
-        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, 1);
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_ON);
+        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, STD_ON);
 
         /* Delay to see the change                                                                                   */
         _delay_ms(500);
 
         /* Turn OFF the LED                                                                                          */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 0);
-        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, 0);
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_OFF);
+        Dio_vidSetPinValue(DIO_PORTA, 7 - LOC_u8Index, STD_OFF);
 
       }
 
@@ -178,13 +178,13 @@ int main(void)
         Dio_vidSetPortValue(DIO_PORTA, Stub_u8Segment[LOC_u8Index]);
 
         /* Turn ON the Dot                                                                                           */
-        Dio_vidSetPinValue(DIO_PORTA, 7, 1);
+        Dio_vidSetPinValue(DIO_PORTA, 7, STD_ON);
 
         /* Delay to see the change                                                                                   */
         _delay_ms(500);
 
         /* Turn OFF the Dot                                                                                          */
-        Dio_vidSetPinValue(DIO_PORTA, 7, 0);
+        Dio_vidSetPinValue(DIO_PORTA, 7, STD_OFF);
 
         /* Delay to see the change                                                                                   */
         _delay_ms(500);
@@ -203,7 +203,7 @@ int main(void)
       for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
       {
         /* All the port is set to ONE                                                                                */
-        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 1);
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, STD_ON);
       }
     }
     /*****************************************************************************************************************/
