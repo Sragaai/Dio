@@ -30,10 +30,10 @@ typedef double f64;
 typedef long double f80;
 
 /* Definition of Standard ON                                                                                         */
-#define STD_ON         0x01
+#define STD_HIGH         0x01
 
 /* Definition of Standard OFF                                                                                        */
-#define STD_OFF        0x00
+#define STD_LOW          0x00
 
 /*********************************************************************************************************************/
 /* Type definition for byte and bit access                                                                           */
