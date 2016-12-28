@@ -9,8 +9,7 @@
 #include "Macros.h"
 #include "Dio.h"
 /*********************************************************************************************************************/
-
-/* Registers Definitions                                                     */
+/* Registers Definitions                                                                                             */
 #define PORTA *((volatile u8*)0x3B)
 #define DDRA  *((volatile u8*)0x3A)
 #define PINA  *((volatile u8*)0x39)
@@ -36,7 +35,8 @@ void Dio_vidSetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8ValueCpy)
     if (u8ValueCpy == 1)
     {
       SET_BIT(PORTA, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(PORTA, u8PinNumberCpy);
     }
@@ -46,7 +46,8 @@ void Dio_vidSetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8ValueCpy)
     if (u8ValueCpy == 1)
     {
       SET_BIT(PORTB, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(PORTB, u8PinNumberCpy);
     }
@@ -56,7 +57,8 @@ void Dio_vidSetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8ValueCpy)
     if (u8ValueCpy == 1)
     {
       SET_BIT(PORTC, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(PORTC, u8PinNumberCpy);
     }
@@ -66,7 +68,8 @@ void Dio_vidSetPinValue(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8ValueCpy)
     if (u8ValueCpy == 1)
     {
       SET_BIT(PORTD, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(PORTD, u8PinNumberCpy);
     }
@@ -126,7 +129,8 @@ void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8Directio
     if (u8DirectionCpy == 1)
     {
       SET_BIT(DDRA, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(DDRA, u8PinNumberCpy);
     }
@@ -135,7 +139,8 @@ void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8Directio
     if (u8DirectionCpy == 1)
     {
       SET_BIT(DDRB, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(DDRB, u8PinNumberCpy);
     }
@@ -145,7 +150,8 @@ void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8Directio
     if (u8DirectionCpy == 1)
     {
       SET_BIT(DDRC, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(DDRC, u8PinNumberCpy);
     }
@@ -155,7 +161,8 @@ void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8Directio
     if (u8DirectionCpy == 1)
     {
       SET_BIT(DDRD, u8PinNumberCpy);
-    } else
+    }
+    else
     {
       CLEAR_BIT(DDRD, u8PinNumberCpy);
     }
@@ -167,4 +174,92 @@ void Dio_vidSetPinDirection(u8 u8PortNumberCpy, u8 u8PinNumberCpy, u8 u8Directio
   }
 
 }
+
+/* Interface to set port direction                                                                                   */
+void Dio_vidSetPortDirection(u8 u8PortNumberCpy, u8 u8ValueCpy)
+{
+
+  switch (u8PortNumberCpy)
+  {
+  case 0:
+    DDRA = u8ValueCpy;
+    break;
+
+  case 1:
+    DDRB = u8ValueCpy;
+    break;
+
+  case 2:
+    DDRC = u8ValueCpy;
+    break;
+
+  case 3:
+    DDRD = u8ValueCpy;
+    break;
+
+  default:
+    break;
+  }
+
+}
+
+/* Interface to set the output value of port                                                                         */
+void Dio_vidSetPortValue(u8 u8PortNumberCpy, u8 u8ValueCpy)
+{
+  switch (u8PortNumberCpy)
+  {
+  case 0:
+    PORTA = u8ValueCpy;
+    break;
+
+  case 1:
+    PORTB = u8ValueCpy;
+    break;
+
+  case 2:
+    PORTC = u8ValueCpy;
+    break;
+
+  case 3:
+    PORTD = u8ValueCpy;
+    break;
+
+  default:
+    break;
+  }
+
+}
+
+/* Interface to get the input value on Port                                                                          */
+u8 Dio_u8GetPortValue(u8 u8PortNumberCpy)
+{
+
+  u8 LOC_u8Return = 0x00;
+
+  switch (u8PortNumberCpy)
+  {
+
+case 0:
+  LOC_u8Return = PINA;
+  break;
+
+case 1:
+  LOC_u8Return = PINB;
+  break;
+
+case 2:
+  LOC_u8Return = PINC;
+  break;
+
+case 3:
+  LOC_u8Return = PIND;
+  break;
+
+default:
+  break;
+
+  }
+  return (LOC_u8Return);
+}
+
 /*********************************************************************************************************************/

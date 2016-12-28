@@ -9,6 +9,35 @@
 #include "util/delay.h"
 #include "Dio.h"
 
+/*********************************************************************************************************************/
+/* Password definition used in DIP Switch Password Application                                                       */
+#define STUB_PASSWORD             0x00
+
+/* LED Pattern to show if the password is OK                                                                         */
+#define STUB_LED_OK_PATTERN       0xA5
+
+/* LED Pattern to show if the password is Not OK                                                                     */
+#define STUB_LED_NOK_PATTERN      0x81
+
+/* Application Choice                                                                                                */
+#define STUB_APP_CHOICE           6
+
+/* 7-Segment numbers from 0 to 9                                                                                     */
+u8 Stub_u8Segment[10] =
+{
+    0x3F, /* 0 */
+    0x06, /* 1 */
+    0x5B, /* 2 */
+    0x4F, /* 3 */
+    0x66, /* 4 */
+    0x6D, /* 5 */
+    0x7D, /* 6 */
+    0x07, /* 7 */
+    0x7F, /* 8 */
+    0x6F /* 9 */
+};
+/*********************************************************************************************************************/
+
 int main(void)
 {
 
@@ -19,7 +48,7 @@ int main(void)
   u8 LOC_u8Choice;
 
   /* Application Choice                                                                                              */
-  LOC_u8Choice = 3;
+  LOC_u8Choice = STUB_APP_CHOICE;
 
   /* PORT Initialization                                                                                             */
   for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
@@ -59,6 +88,8 @@ int main(void)
     /*****************************************************************************************************************/
 
     /********************************* Moving LED String 1 ***********************************************************/
+    /* LED string is moving from one side to another and repeat                                                       */
+
     if (LOC_u8Choice == 1)
     {
 
@@ -78,6 +109,7 @@ int main(void)
     /*****************************************************************************************************************/
 
     /********************************* Moving LED String 2 ***********************************************************/
+    /* LED string is moving from one side to another and go back again                                               */
     if (LOC_u8Choice == 2)
     {
 
@@ -110,6 +142,7 @@ int main(void)
     /*****************************************************************************************************************/
 
     /********************************* Moving LED String 3 ***********************************************************/
+    /* LED sting is moving to the middle from the two sides and go back again                                        */
     if (LOC_u8Choice == 3)
     {
 
@@ -130,6 +163,68 @@ int main(void)
 
     }
     /*****************************************************************************************************************/
+
+    /*************************************** 7-Segment 0-9 ***********************************************************/
+    /* Counting numbers from 0 to 9 on 7-Segment                                                                     */
+
+    if (LOC_u8Choice == 4)
+    {
+
+      /* Loop on numbers from 0 t0 9                                                                                 */
+      for (LOC_u8Index = 0; LOC_u8Index < 10; LOC_u8Index++)
+      {
+        /* Load the new number to show                                                                               */
+
+        Dio_vidSetPortValue(DIO_PORTA, Stub_u8Segment[LOC_u8Index]);
+
+        /* Turn ON the Dot                                                                                           */
+        Dio_vidSetPinValue(DIO_PORTA, 7, 1);
+
+        /* Delay to see the change                                                                                   */
+        _delay_ms(500);
+
+        /* Turn OFF the Dot                                                                                          */
+        Dio_vidSetPinValue(DIO_PORTA, 7, 0);
+
+        /* Delay to see the change                                                                                   */
+        _delay_ms(500);
+
+      }
+
+    }
+    /*****************************************************************************************************************/
+
+    /***************************************** DIO Test **************************************************************/
+    /* Testing DIO pins                                                                                              */
+
+    if (LOC_u8Choice == 5)
+    {
+
+      for (LOC_u8Index = 0; LOC_u8Index < 8; LOC_u8Index++)
+      {
+        /* All the port is set to ONE                                                                                */
+        Dio_vidSetPinValue(DIO_PORTA, LOC_u8Index, 1);
+      }
+    }
+    /*****************************************************************************************************************/
+
+    /********************************* Password Application **********************************************************/
+    /* If the value on the DIP Switch matches the password then turn on the LED string in pattern                    */
+    if (LOC_u8Choice == 6)
+    {
+
+      if (Dio_u8GetPortValue(DIO_PORTD) == STUB_PASSWORD)
+      {
+        Dio_vidSetPortValue(DIO_PORTA, STUB_LED_OK_PATTERN);
+      }
+      else
+      {
+        Dio_vidSetPortValue(DIO_PORTA, STUB_LED_NOK_PATTERN);
+      }
+
+    }
+    /*****************************************************************************************************************/
+
   }
 
 }
